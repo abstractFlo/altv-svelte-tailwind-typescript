@@ -48,7 +48,7 @@ export default {
         {src: 'public/*', dest: 'dist'},
       ],
     }),
-    postcss({extract: true}),
+    postcss(),
     svelte({
       preprocess: sveltePreprocess(),
       compilerOptions: {
