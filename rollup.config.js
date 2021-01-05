@@ -36,14 +36,24 @@ function serve() {
 
 export default {
   input: 'src/main.ts',
-  output: {
-    sourcemap: !production,
-    format: 'es',
-    name: 'app',
-    dir: 'dist',
-    entryFileNames: !production ? '[name].js' : '[name]-[hash].js',
-    chunkFileNames: !production ? '[name].js' : '[name]-[hash].js',
-  },
+  output: [
+    {
+      sourcemap: !production,
+      format: 'es',
+      name: 'app',
+      dir: 'dist',
+      entryFileNames: !production ? '[name].js' : '[name]-[hash].js',
+      chunkFileNames: !production ? '[name].js' : '[name]-[hash].js',
+    },
+    {
+      sourcemap: !production,
+      format: 'es',
+      name: 'app',
+      dir: 'foo',
+      entryFileNames: !production ? '[name].js' : '[name]-[hash].js',
+      chunkFileNames: !production ? '[name].js' : '[name]-[hash].js',
+    }
+  ],
   plugins: [
     postcss(),
     svelteSvg(),
@@ -63,7 +73,7 @@ export default {
     resolve({
       browser: true,
       dedupe: ['svelte'],
-      moduleDirectories: ['local_modules', 'node_modules'],
+      moduleDirectories: ['node_modules'],
     }),
     commonjs(),
     typescript({
@@ -72,12 +82,12 @@ export default {
     }),
     htmlBundle({
       template: 'src/index.html',
-      target: 'dist/index.html',
+      target: 'index.html',
       attrs: ['defer', 'type="module"'],
     }),
     copy({
       targets: [
-        {src: 'public/*', dest: 'dist'},
+        {src: 'public/*', dest: 'dist'}
       ],
     }),
 
