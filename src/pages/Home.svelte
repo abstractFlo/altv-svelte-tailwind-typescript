@@ -1,6 +1,7 @@
 <style lang="scss">
   :global(body) {
-    @apply bg-gray-50;
+    background: rgb(237,193,212);
+    background: radial-gradient(circle, rgba(237,193,212,1) 0%, rgba(133,163,199,1) 100%);
   }
 
   svg {

@@ -5,7 +5,7 @@ import livereload from 'rollup-plugin-livereload';
 import {terser} from 'rollup-plugin-terser';
 import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
-import html from '@rollup/plugin-html';
+import htmlBundle from './plugins/htmlBundler';
 import copy from 'rollup-plugin-copy';
 import postcss from 'rollup-plugin-postcss';
 
@@ -37,9 +37,10 @@ export default {
   input: 'src/main.ts',
   output: {
     sourcemap: !production,
-    format: 'esm',
+    format: 'es',
     name: 'app',
     dir: 'dist',
+    entryFileNames: !production ? '[name].js' : '[name]-[hash].js',
     chunkFileNames: !production ? '[name].js' : '[name]-[hash].js',
   },
   plugins: [
@@ -65,13 +66,18 @@ export default {
     resolve({
       browser: true,
       dedupe: ['svelte'],
+      moduleDirectories: ['local_modules', 'node_modules'],
     }),
     commonjs(),
     typescript({
       sourceMap: !production,
       inlineSources: !production,
     }),
-    html(),
+    htmlBundle({
+      template: 'src/index.html',
+      target: 'dist/index.html',
+      attrs: ['defer', 'type="module"']
+    }),
 
     // In dev mode, call `npm run start` once
     // the bundle has been generated

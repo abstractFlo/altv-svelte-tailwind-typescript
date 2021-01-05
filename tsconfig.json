@@ -1,7 +1,7 @@
 {
   "extends": "@tsconfig/svelte/tsconfig.json",
   "compilerOptions": {
-    "module": "ESNext",
+    "module": "es2020",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "importsNotUsedAsValues": "preserve",
