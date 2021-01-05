@@ -1,4 +1,5 @@
 import svelte from 'rollup-plugin-svelte';
+import svelteSvg from 'rollup-plugin-svelte-svg';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
@@ -44,12 +45,8 @@ export default {
     chunkFileNames: !production ? '[name].js' : '[name]-[hash].js',
   },
   plugins: [
-    copy({
-      targets: [
-        {src: 'public/*', dest: 'dist'},
-      ],
-    }),
     postcss(),
+    svelteSvg(),
     svelte({
       preprocess: sveltePreprocess(),
       compilerOptions: {
@@ -76,7 +73,12 @@ export default {
     htmlBundle({
       template: 'src/index.html',
       target: 'dist/index.html',
-      attrs: ['defer', 'type="module"']
+      attrs: ['defer', 'type="module"'],
+    }),
+    copy({
+      targets: [
+        {src: 'public/*', dest: 'dist'},
+      ],
     }),
 
     // In dev mode, call `npm run start` once
