@@ -44,14 +44,6 @@ export default {
       dir: 'dist',
       entryFileNames: !production ? '[name].js' : '[name]-[hash].js',
       chunkFileNames: !production ? '[name].js' : '[name]-[hash].js',
-    },
-    {
-      sourcemap: !production,
-      format: 'es',
-      name: 'app',
-      dir: 'foo',
-      entryFileNames: !production ? '[name].js' : '[name]-[hash].js',
-      chunkFileNames: !production ? '[name].js' : '[name]-[hash].js',
     }
   ],
   plugins: [
